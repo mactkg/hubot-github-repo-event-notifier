@@ -1,5 +1,7 @@
 #! /usr/bin/env coffee
 
+IrcColors = require "irc-colors"
+
 unique = (array) ->
   output = {}
   output[array[key]] = array[key] for key in [0...array.length]
