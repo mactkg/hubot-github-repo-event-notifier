@@ -45,5 +45,5 @@ module.exports =
 
   issue_comment: (data, callback) ->
     pr_or_issue = data["issue"]
-    callback "New comment on \"#{pr_or_issue.title}\" by #{data.comment.user.login}"
+    callback "New comment on \"#{pr_or_issue.title}\" (#{comment.html_url}) by #{data.comment.user.login}: #{comment.body}"
 
