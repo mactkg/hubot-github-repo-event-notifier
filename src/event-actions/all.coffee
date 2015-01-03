@@ -27,6 +27,15 @@ buildNewIssueOrPRMessage = (data, eventType, callback) ->
     if pr_or_issue.body?
       mentioned_line = extractMentionsFromBody(pr_or_issue.body)
     callback "New #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{pr_or_issue.user.login}: #{pr_or_issue.html_url}#{mentioned_line}"
+  else if data.action == 'reopened'
+    callback "Reopened #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{pr_or_issue.user.login}: #{pr_or_issue.html_url}"
+  else if data.action == 'closed'
+    if pr_or_issue.merged
+      callback "Merged: #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{pr_or_issue.user.login} (#{pr_or_issue.html_url})"
+    else
+      callback "Closed #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" without merge by #{pr_or_issue.user.login} (#{pr_or_issue.html_url})"
+
+        
 
 module.exports =
   issues: (data, callback) ->
@@ -45,5 +54,5 @@ module.exports =
 
 # comments on pull requests are also considered issue comments
   issue_comment: (data, callback) ->
-    callback "New comment on \"#{data.issue.title}\" (#{data.comment.html_url}) by #{data.comment.user.login}: #{data.comment.body}"
+    callback "New comment on \"#{data.issue.title}\" (#{data.comment.html_url}) by #{data.comment.user.login}: \"#{data.comment.body}\""
 
