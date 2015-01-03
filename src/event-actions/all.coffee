@@ -43,3 +43,7 @@ module.exports =
       if build.error.message?
         callback "Page build for #{data.repository.full_name} errored: #{build.error.message}."
 
+  issue_comment: (data, callback) ->
+    pr_or_issue = data["issue"]
+    callback "New comment on \"{pr_or_issue.title}\" by {pr_or_issue.comment.user.login}"
+
