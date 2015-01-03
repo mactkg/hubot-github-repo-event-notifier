@@ -56,4 +56,8 @@ module.exports =
     callback "New comment on \"#{data.issue.title}\" (#{data.comment.html_url}) by #{data.comment.user.login}: \"#{data.comment.body}\""
 
   push: (data, callback) ->
-    callback "#{data.sender.login} pushed #{data.size} commits to #{data.ref}"
+    if data.ref == 'refs/heads/master'
+      commit_count = data.commits.length
+      callback "#{data.sender.login} pushed #{commit_count} commits to #{data.ref}"
+    else
+      console.log("No notifications for pushes to not-master branches")
