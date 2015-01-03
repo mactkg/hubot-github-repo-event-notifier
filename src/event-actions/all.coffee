@@ -53,7 +53,7 @@ module.exports =
 
 # comments on pull requests are also considered issue comments
   issue_comment: (data, callback) ->
-    callback "New comment on \"#{data.issue.title}\" (#{data.comment.html_url}) by #{data.comment.user.login}: \"#{data.comment.body}\""
+    callback "New comment on \"#{data.issue.title}\" (#{data.comment.html_url}) by #{IrcColors.pink(data.comment.user.login)}: \"#{data.comment.body}\""
 
   push: (data, callback) ->
     if data.ref == 'refs/heads/master'
