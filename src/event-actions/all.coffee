@@ -35,7 +35,6 @@ buildNewIssueOrPRMessage = (data, eventType, callback) ->
     else
       callback "Closed #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" without merge by #{pr_or_issue.user.login} (#{pr_or_issue.html_url})"
 
-        
 
 module.exports =
   issues: (data, callback) ->
@@ -56,3 +55,5 @@ module.exports =
   issue_comment: (data, callback) ->
     callback "New comment on \"#{data.issue.title}\" (#{data.comment.html_url}) by #{data.comment.user.login}: \"#{data.comment.body}\""
 
+  push: (data, callback) ->
+    callback "#{data.sender.login} pushed #{data.size} commits to #{data.ref}"
