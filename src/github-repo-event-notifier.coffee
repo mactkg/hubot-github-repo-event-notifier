@@ -41,7 +41,7 @@ if eventTypesRaw?
 else
   console.warn("github-repo-event-notifier is not setup to receive any events (HUBOT_GITHUB_EVENT_NOTIFIER_TYPES is empty).")
 
-IrcColours = require "irc-colors"
+IrcColors = require "irc-colors"
 
 module.exports = (robot) ->
   robot.router.post "/hubot/gh-repo-events", (req, res) ->
