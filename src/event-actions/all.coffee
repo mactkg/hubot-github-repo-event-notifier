@@ -58,6 +58,6 @@ module.exports =
   push: (data, callback) ->
     if data.ref == 'refs/heads/master'
       commit_count = data.commits.length
-      callback "#{data.sender.login} pushed #{commit_count} commits to #{data.ref}"
+      callback "#{data.sender.login} pushed #{commit_count} commits to #{data.repository.name}"
     else
       console.log("No notifications for pushes to not-master branches")
