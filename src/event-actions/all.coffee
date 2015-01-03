@@ -43,7 +43,7 @@ module.exports =
       if build.error.message?
         callback "Page build for #{data.repository.full_name} errored: #{build.error.message}."
 
+# comments on pull requests are also considered issue comments
   issue_comment: (data, callback) ->
-    pr_or_issue = data["issue"]
-    callback "New comment on \"#{pr_or_issue.title}\" (#{comment.html_url}) by #{data.comment.user.login}: #{comment.body}"
+    callback "New comment on \"#{data.issue.title}\" (#{data.comment.html_url}) by #{data.comment.user.login}: #{data.comment.body}"
 
