@@ -27,6 +27,8 @@ Run `npm install`
 
 With a deployed hubot, configure each repository to webhook to [hubot_url_and_port]/hubot/gh-repo-events.  You will also need to set an environment variable `HUBOT_GITHUB_EVENT_NOTIFIER_TYPES` which can contain a comma-separated list (NB: without spaces!) of the events you'd like to subscribe to.  The list of options is here: http://developer.github.com/webhooks/#events
 
+With the IRC adapter, you can also enable colors by setting the HUBOT_GITHUB_EVENT_NOTIFIER_IRC_COLORS environment variable.
+
 ## Development Testing
 
 Ideally, you'd write tests and put them in our `test/` directory.

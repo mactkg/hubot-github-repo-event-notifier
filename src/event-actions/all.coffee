@@ -1,6 +1,9 @@
 #! /usr/bin/env coffee
 
-IrcColors = require "irc-colors"
+enableColors = process.env['HUBOT_GITHUB_EVENT_NOTIFIER_IRC_COLORS']
+
+if enableColors?
+  IrcColors = require "irc-colors"
 
 unique = (array) ->
   output = {}
@@ -22,20 +25,38 @@ extractMentionsFromBody = (body) ->
   else
     ""
 
+formatUser = (message) ->
+  if IrcColors?
+    "#{IrcColors.pink(message)}"
+  else
+    "#{message}"
+
+formatLink = (message) ->
+  if IrcColors?
+    "#{IrcColors.blue(message)}"
+  else
+    "#{message}"
+
+formatProse = (message) ->
+  if IrcColors?
+    "#{IrcColors.gray(message)}"
+  else
+    "#{message}"
+
 buildNewIssueOrPRMessage = (data, eventType, callback) ->
   pr_or_issue = data[eventType]
   if data.action == 'opened'
     mentioned_line = ''
     if pr_or_issue.body?
       mentioned_line = extractMentionsFromBody(pr_or_issue.body)
-    callback "New #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{IrcColors.pink(pr_or_issue.user.login)}: #{IrcColors.blue(pr_or_issue.html_url)}#{mentioned_line}"
+    callback "New #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{formatUser(pr_or_issue.user.login)}: #{formatLink(pr_or_issue.html_url)}#{mentioned_line}"
   else if data.action == 'reopened'
-    callback "Reopened #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{IrcColors.pink(pr_or_issue.user.login)}: #{IrcColors.blue(pr_or_issue.html_url)}"
+    callback "Reopened #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{formatUser(pr_or_issue.user.login)}: #{formatLink(pr_or_issue.html_url)}"
   else if data.action == 'closed'
     if pr_or_issue.merged
-      callback "Merged: #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{IrcColors.pink(pr_or_issue.user.login)} (#{IrcColors.blue(pr_or_issue.html_url)})"
+      callback "Merged: #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{formatUser(pr_or_issue.user.login)} (#{formatLink(pr_or_issue.html_url)})"
     else
-      callback "Closed #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" without merge by #{IrcColors.pink(pr_or_issue.user.login)} (#{IrcColors.blue(pr_or_issue.html_url)})"
+      callback "Closed #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" without merge by #{formatUser(pr_or_issue.user.login)} (#{FormatLink(pr_or_issue.html_url)})"
 
 
 module.exports =
@@ -55,11 +76,11 @@ module.exports =
 
 # comments on pull requests are also considered issue comments
   issue_comment: (data, callback) ->
-    callback "New comment on \"#{data.issue.title}\" (#{IrcColors.blue(data.comment.html_url)}) by #{IrcColors.pink(data.comment.user.login)}: \"#{IrcColors.gray(data.comment.body)}\""
+    callback "New comment on \"#{data.issue.title}\" (#{formatLink(data.comment.html_url)}) by #{formatUser(data.comment.user.login)}: \"#{formatProse(data.comment.body)}\""
 
   push: (data, callback) ->
     if data.ref == 'refs/heads/master'
       commit_count = data.commits.length
-      callback "#{IrcColors.pink(data.sender.login)} pushed #{commit_count} commits to #{data.repository.name}"
+      callback "#{formatUser(data.sender.login)} pushed #{commit_count} commits to #{data.repository.name}"
     else
       console.log("No notifications for pushes to not-master branches")
