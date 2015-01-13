@@ -56,7 +56,7 @@ buildNewIssueOrPRMessage = (data, eventType, callback) ->
     if pr_or_issue.merged
       callback "Merged: #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" by #{formatUser(pr_or_issue.user.login)} (#{formatLink(pr_or_issue.html_url)})"
     else
-      callback "Closed #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" without merge by #{formatUser(pr_or_issue.user.login)} (#{FormatLink(pr_or_issue.html_url)})"
+      callback "#{formatUser(pr_or_issue.user.login)} closed #{eventType.replace('_', ' ')} \"#{pr_or_issue.title}\" without merge (#{FormatLink(pr_or_issue.html_url)})"
 
 
 module.exports =
