@@ -84,3 +84,6 @@ module.exports =
       callback "#{formatUser(data.sender.login)} pushed #{commit_count} commits to #{data.repository.name}"
     else
       console.log("No notifications for pushes to not-master branches")
+
+  pull_request_review_comment: (data, callback) ->
+    callback "#{formatUser(data.comment.user.login)} commented on pull request \"#{data.pull_request.title}\" (#{formatLink(data.pull_request.html_url)})"
