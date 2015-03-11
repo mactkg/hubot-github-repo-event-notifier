@@ -89,3 +89,6 @@ module.exports =
 
   pull_request_review_comment: (data, callback) ->
     callback "#{formatUser(data.comment.user.login)} commented on pull request \"#{data.pull_request.title}\" (#{formatLink(data.pull_request.html_url)})"
+
+  gollum: (data, callback) ->
+    callback "#{formatUser(data.sender.login)} updated the wiki"
