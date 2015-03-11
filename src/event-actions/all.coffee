@@ -72,7 +72,7 @@ module.exports =
     build = data.build
     if build?
       if build.status is "built"
-        callback "#{build.pusher.login} built #{data.repository.full_name} pages at #{build.commit} in #{build.duration}ms."
+        callback "#{build.pusher.login} built #{data.repository.full_name} pages in #{build.duration}ms."
       if build.error.message?
         callback "Page build for #{data.repository.full_name} errored: #{build.error.message}."
 
