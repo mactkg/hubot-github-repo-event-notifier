@@ -25,6 +25,20 @@ Add **hubot-github-repo-event-notifier** to your `external-scripts.json`:
 
 Run `npm install`
 
+## Configuration
+
+This plugin doesn't offer any commands for the hubot to listen to, it receives
+webhooks from GitHub and lets you know in channel what happened.  To set up:
+
+   1. Create a new webhook for your `myuser/myrepo` repository at:
+      <https://github.com/myuser/myrepo/settings/hooks/new>
+
+   2. Select the individual events to minimize the load on your Hubot.
+
+   3. Add the url: `<HUBOT_URL>:<PORT>/hubot/gh-repo-events[?room=<room>]`
+      (Don't forget to urlencode the room name, especially for IRC. Hint: # = %23)
+
+
 ## Development Testing
 
 Ideally, you'd write tests and put them in our `test/` directory.
