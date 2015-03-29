@@ -25,9 +25,20 @@ Add **hubot-github-repo-event-notifier** to your `external-scripts.json`:
 
 Run `npm install`
 
-With a deployed hubot, configure each repository to webhook to [hubot_url_and_port]/hubot/gh-repo-events.  You will also need to set an environment variable `HUBOT_GITHUB_EVENT_NOTIFIER_TYPES` which can contain a comma-separated list (NB: without spaces!) of the events you'd like to subscribe to.  The list of options is here: http://developer.github.com/webhooks/#events
+## Configuration
 
-With the IRC adapter, you can also enable colors by setting the HUBOT_GITHUB_EVENT_NOTIFIER_IRC_COLORS environment variable.
+This plugin doesn't offer any commands for the hubot to listen to, it receives
+webhooks from GitHub and lets you know in channel what happened.  To set up:
+
+   1. Create a new webhook for your `myuser/myrepo` repository at:
+      <https://github.com/myuser/myrepo/settings/hooks/new>
+
+   2. Select the individual events to minimize the load on your Hubot.
+
+   3. Add the url: `<HUBOT_URL>:<PORT>/hubot/gh-repo-events[?room=<room>]`
+      (Don't forget to urlencode the room name, especially for IRC. Hint: # = %23)
+
+With a deployed hubot, configure each repository to webhook to [hubot_url_and_port]/hubot/gh-repo-events.  You will also need to set an environment variable `HUBOT_GITHUB_EVENT_NOTIFIER_TYPES` which can contain a comma-separated list (NB: without spaces!) of the events you'd like to subscribe to.  The list of options is here: http://developer.github.com/webhooks/#events
 
 ## Development Testing
 

@@ -1,35 +1,3 @@
-# Description:
-#   Notifies about any available GitHub repo event via webhook #
-# Configuration:
-#   HUBOT_GITHUB_EVENT_NOTIFIER_ROOM  - The default room to which message should go (optional)
-#   HUBOT_GITHUB_EVENT_NOTIFIER_TYPES - Comma-separated list of event types to notify on
-#     (See: http://developer.github.com/webhooks/#events)
-#
-#   You will have to do the following:
-#   1. Create a new webhook for your `myuser/myrepo` repository at:
-#      https://github.com/myuser/myrepo/settings/hooks/new
-#
-#   2. Select the individual events to minimize the load on your Hubot.
-#
-#   3. Add the url: <HUBOT_URL>:<PORT>/hubot/gh-repo-events[?room=<room>]
-#      (Don't forget to urlencode the room name, especially for IRC. Hint: # = %23)
-#
-# Commands:
-#   None
-#
-# URLS:
-#   POST /hubot/gh-repo-events?room=<room>
-#
-# Notes:
-#   Currently tested with the following event types in HUBOT_GITHUB_EVENT_NOTIFIER_TYPES:
-#     - issue
-#     - pull_request
-#
-# Authors:
-#   spajus
-#   patcon
-#   parkr
-
 url           = require('url')
 querystring   = require('querystring')
 eventActions  = require('./event-actions/all')
