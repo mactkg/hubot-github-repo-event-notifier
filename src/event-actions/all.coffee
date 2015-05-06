@@ -50,6 +50,12 @@ formatProse = (message) ->
   else
     "#{message}"
 
+formatWikiLinks = (links) ->
+  msg = ""
+  for link in links
+    msg += "#{formatLink(link.html_url)}\n"
+  msg
+
 buildNewIssueOrPRMessage = (data, eventType, callback) ->
   pr_or_issue = data[eventType]
   if data.action == 'opened'
@@ -96,3 +102,6 @@ module.exports =
 
   pull_request_review_comment: (data, callback) ->
     callback "#{formatUser(data.comment.user.login)} commented on pull request \"#{data.pull_request.title}\" (#{formatLink(data.pull_request.html_url)})"
+
+  gollum: (data, callback) ->
+    callback "#{formatUser(data.sender.login)} updated the wiki: #{formatWikiLinks(data.pages)}"
