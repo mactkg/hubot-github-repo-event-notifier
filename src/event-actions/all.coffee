@@ -91,10 +91,10 @@ module.exports =
 
 # comments on pull requests are also considered issue comments
   issue_comment: (data, callback) ->
-    callback "new comment on \"#{data.issue.title}\" (#{formatlink(data.comment.html_url)}) by #{formatuser(data.comment.user.login)}: \"#{formatprose(data.comment.body)}\""
+    callback "new comment on \"#{data.issue.title}\" (#{formatLink(data.comment.html_url)}) by #{formatuser(data.comment.user.login)}: \"#{formatprose(data.comment.body)}\""
 
   commit_comment: (data, callback) ->
-    callback "new comment on \"#{data.repository.full_name}\" (#{formatlink(data.comment.html_url)}) by #{formatuser(data.comment.user.login)}: \"#{formatprose(data.comment.body)}\""
+    callback "new comment on \"#{data.repository.full_name}\" (#{formatLink(data.comment.html_url)}) by #{formatuser(data.comment.user.login)}: \"#{formatprose(data.comment.body)}\""
 
   push: (data, callback) ->
     if data.ref == 'refs/heads/master'
